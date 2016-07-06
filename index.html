@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+	<meta charset='utf-8'>
+	<meta name="author" content="Uribe Camacho Germain, Rivera Gonzalez Hector Hugo">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<title></title>
+</head>
+<body onload="loadSound();">
+ 		<div id="info" class='screen'>
+            <p>
+            	Un juego de: 
+            	<a target="_blank" href="http://psicodragon.xyz"><img src="images/PsicodragoN.png"></a>
+            	<a target="_blank" href="http://www.programadorwebfreelance.mx/"><img src="images/Hektor.png"></a>
+            </p>
+            <img src="images/personajes.png" class='p'>
+            <div class="datos">
+                <h1>Demon Anarqui</h1>    
+                <button class="btn start" id='otro'>Iniciar</button>
+                <p>
+                    <h3>Instrucciones</h3>
+                    <p>Mover personaje con flechas</p>
+                    <p>Saltar flecha hacia arriba</p>
+                </p>
+            </div>
+        </div>
+        <div id="win" class='screen'>
+            <p>Un juego de: <img src="images/PsicodragoN.jpg"> </p>
+            <img src="imgs/personajeF.png" class='p'>
+            <div class="datos">
+                <h1>¡GANASTE!</h1>    
+                <button class="btn start" id='otro'>Juega de nuevo</button>
+                <p>
+                    <h3>Puntaje</h3>
+                    <p id='score'></p>
+                </p>
+            </div>
+        </div>
+        <div id="lose" class='screen'>
+            <p>Un juego de: <img src="images/PsicodragoN.jpg"> </p>
+            <img src="imgs/personajeF.png" class='p'>
+            <div class="datos">
+                <h1>Perdiste</h1>    
+                <p>Pero puedes iniciar de nuevo</p>
+                <button class="btn start"  id='algo'>Reintentar</button>
+                <p>
+                    <h3>Instrucciones</h3>
+                    <p>Mover personaje con flechas</p>
+                    <p>Saltar flecha hacia arriba</p>
+                </p>
+            </div>
+        </div>
+	<div id="juego">
+
+	</div>
+		<script src='js/preloadjs-0.1.0.min.js'></script>
+		<script src='js/kinetic-v4.3.2.min.js'></script>
+ 		<script src="js/soundjs-0.6.0.min.js"></script>
+		<script src='js/personaje.js'></script>
+		<script src='js/enemigo.js'></script>
+		<script src='js/plataforma.js'></script>
+		<script src='js/orbe.js'></script>
+		<script src='js/llave.js'></script>
+		<script src='js/portal.js'></script>
+		<script src='js/game.js'></script>
+		
+
+		<script>
+			var preloader;
+			var imagenes = ['images/personaje.png','images/enemigo.png','images/orbe.gif','images/portal.png','images/fondo.png','images/llave.png'];	// Arreglo de imagenes a cargar
+			
+
+			window.addEventListener('load', function(){
+				preloader = new PreloadJS();
+				preloader.onProgress = progresoCarga;
+				cargar();
+				
+				var iniciadores = document.getElementsByClassName('start');
+				
+				for(i in iniciadores){
+					var boton = iniciadores[i];
+					boton.addEventListener('click', iniciarJuego);
+				}
+			});
+
+			function cargar(){
+				while(imagenes.length > 0){
+					var url = imagenes.shift();	// Elimina el ultimo elemento del arreglo y lo devuelve
+					preloader.loadFile(url);	// Cargar el archivo
+				}
+			}
+
+			function progresoCarga(){
+				if(preloader.progress == 1){
+					
+					document.querySelector('#info').style.display = 'block';
+				} 
+			}
+
+			function iniciarJuego(){
+				document.querySelector('#info').style.display = 'none';
+				document.querySelector('#lose').style.display = 'none';
+				document.querySelector('#win').style.display = 'none';
+				document.querySelector('#juego').style.display = 'block';
+				nivel1();	// Creamos el nivel
+			}
+		</script>
+		<script src='js/main.js'></script>
+</body>
+</html>
